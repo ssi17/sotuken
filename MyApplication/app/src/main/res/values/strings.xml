@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+<!--    fragment_top-->
+    <string name="start_text">再生ボタンを押すと\n発信された情報がこちらに\n表示されます</string>
+<!--    item_view-->
+    <string name="information_title">Information</string>
+    <string name="title1">首里城</string>
+    <string name="title2">美ら海水族館</string>
+    <string name="describe1">首里城の説明です。ああああああ\nああああああああああ\nああああああああああ</string>
+    <string name="describe2">美ら海水族館の説明です。ああああああ\nああああああああああ\nああああああああああ</string>
+    <string name="item_page">ページへ</string>
+    <string name="item_map">マップを開く</string>
+</resources>
