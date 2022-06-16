@@ -3,6 +3,8 @@ package com.example.myapplication
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -24,5 +26,14 @@ class MainActivity : AppCompatActivity() {
         var bgm = MediaPlayer.create(this, R.raw.bgm)
         bgm.isLooping = true
         bgm.start()
+    }
+
+    fun setButton(startButton: ImageView, flag: Boolean) {
+        startButton.setImageResource(
+            if(flag) {
+                R.drawable.ic_pause_48
+            } else {
+                R.drawable.ic_start_48
+            })
     }
 }

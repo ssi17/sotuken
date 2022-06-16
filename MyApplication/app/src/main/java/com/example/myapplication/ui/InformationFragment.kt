@@ -45,24 +45,20 @@ class InformationFragment: Fragment() {
         } else {
             if(sharedViewModel.images == null) {
                 setTopTitle()
+            } else {
+                setRecyclerView()
             }
-            binding!!.startButton.setImageResource(R.drawable.ic_start_48)
         }
         setButton()
+    }
+
+    private fun setButton() {
+        MainActivity().setButton(binding!!.startButton, sharedViewModel.startFlag)
     }
 
     private fun setTopTitle() {
         binding!!.topTitle.setImageResource(R.drawable.top_title)
         binding!!.startText.setText(R.string.start_text)
-    }
-
-    fun setButton() {
-        binding!!.startButton.setImageResource(
-            if(sharedViewModel.startFlag) {
-                R.drawable.ic_pause_48
-            } else {
-                R.drawable.ic_start_48
-            })
     }
 
     fun pushButton() {

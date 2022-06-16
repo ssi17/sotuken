@@ -25,10 +25,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:id="@+id/item_title"
-        app:layout_constraintTop_toTopOf="@id/favorite_button"
+        app:layout_constraintTop_toTopOf="@id/item_image"
         app:layout_constraintStart_toEndOf="@id/item_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/internet_image" />
+        app:layout_constraintBottom_toTopOf="@id/item_describe" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,42 +37,24 @@
         app:layout_constraintTop_toBottomOf="@id/item_title"
         app:layout_constraintStart_toEndOf="@id/item_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/internet_image" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/internet_image"
-        android:src="@drawable/ic_internet"
-        app:layout_constraintTop_toBottomOf="@id/item_title"
-        app:layout_constraintStart_toEndOf="@id/item_image"
-        app:layout_constraintBottom_toTopOf="@id/item_describe" />
+        app:layout_constraintBottom_toTopOf="@id/item_page" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/item_page"
         android:text="@string/item_page"
-        app:layout_constraintTop_toTopOf="@id/internet_image"
-        app:layout_constraintStart_toEndOf="@id/internet_image"
-        app:layout_constraintBottom_toBottomOf="@id/internet_image" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/map_image"
-        android:src="@drawable/ic_map"
-        app:layout_constraintTop_toTopOf="@id/internet_image"
-        app:layout_constraintStart_toEndOf="@id/item_page"
-        app:layout_constraintBottom_toBottomOf="@id/internet_image" />
+        app:layout_constraintStart_toEndOf="@id/item_image"
+        app:layout_constraintEnd_toStartOf="@id/item_map"
+        app:layout_constraintBottom_toBottomOf="@id/item_image" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/item_map"
         android:text="@string/item_map"
-        app:layout_constraintTop_toTopOf="@id/internet_image"
-        app:layout_constraintStart_toEndOf="@id/map_image"
-        app:layout_constraintBottom_toBottomOf="@id/internet_image" />
+        app:layout_constraintTop_toTopOf="@id/item_page"
+        app:layout_constraintStart_toEndOf="@id/item_page"
+        app:layout_constraintBottom_toBottomOf="@id/item_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
