@@ -1,9 +1,7 @@
 package com.example.myapplication.ui
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 
@@ -17,9 +15,9 @@ class RecyclerAdapter(private val images: List<Int>?, private val favoriteFlag:L
 //        holder.list.text = list[position]
         holder.images?.setImageResource(images?.get(position) as Int)
         if(favoriteFlag?.get(position) == true) {
-            holder.favorites.setImageResource(R.drawable.ic_not_favo)
+            holder.favorites.setImageResource(R.drawable.favorite_button)
         } else {
-            holder.favorites.setImageResource(R.drawable.ic_favo)
+            holder.favorites.setImageResource(R.drawable.not_favorite_button)
         }
         holder.titles.setText(titles?.get(position) as Int)
         holder.describes.setText(describes?.get(position) as Int)

@@ -12,10 +12,19 @@
         <entry key="..\:/Users/yuu/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_top.xml" value="0.1" />
         <entry key="..\:/Users/yuu/AndroidStudioProjects/MyApplication/app/src/main/res/layout/item_view.xml" value="0.43431221020092736" />
         <entry key="..\:/Users/yuu/AndroidStudioProjects/MyApplication/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.11614583333333334" />
+        <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/drawable/ic_favo.xml" value="0.1" />
+        <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/drawable/ic_favorite.xml" value="0.1" />
+        <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/drawable/ic_internet.xml" value="0.1" />
+        <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/drawable/ic_map.xml" value="0.1" />
+        <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/drawable/ic_not_favo.xml" value="0.1" />
+        <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/drawable/ic_start.xml" value="0.1" />
+        <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/drawable/ic_start_48.xml" value="0.1" />
+        <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/drawable/not_favorite_button.xml" value="0.1" />
         <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.259375" />
         <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/layout/fragment_favorite.xml" value="0.259375" />
+        <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/layout/fragment_information.xml" value="0.12613981762917933" />
         <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/layout/fragment_setting.xml" value="0.259375" />
-        <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/layout/item_view.xml" value="0.259375" />
+        <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/layout/item_view.xml" value="0.1" />
         <entry key="..\:/Users/yuu/Desktop/git/MyApplication/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.259375" />
       </map>
     </option>

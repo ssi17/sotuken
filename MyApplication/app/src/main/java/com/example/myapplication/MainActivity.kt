@@ -31,9 +31,9 @@ class MainActivity : AppCompatActivity() {
     fun setButton(startButton: ImageView, flag: Boolean) {
         startButton.setImageResource(
             if(flag) {
-                R.drawable.ic_pause_48
+                R.drawable.pause_button
             } else {
-                R.drawable.ic_start_48
+                R.drawable.start_button
             })
     }
 }
