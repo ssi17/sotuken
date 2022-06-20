@@ -33,13 +33,25 @@ class SettingFragment: Fragment() {
         setButton()
     }
 
-    fun setButton() {
+    private fun setButton() {
         MainActivity().setButton(binding!!.startButton, sharedViewModel.startFlag)
     }
 
     fun pushButton() {
         sharedViewModel.changeStartFlag()
         setButton()
+    }
+
+    fun switchBgm() {
+        requireActivity().let {
+            if(it is MainActivity) {
+                if(binding!!.soundSwitch.isChecked) {
+                    it.bgm.start()
+                } else {
+                    it.bgm.pause()
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

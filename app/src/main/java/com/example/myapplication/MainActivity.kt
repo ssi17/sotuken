@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
+    var bgm: MediaPlayer = MediaPlayer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +24,8 @@ class MainActivity : AppCompatActivity() {
 
 //        setupActionBarWithNavController(navController)
         setupWithNavController(bottomNavigation, navController)
-        var bgm = MediaPlayer.create(this, R.raw.bgm)
+
+        bgm = MediaPlayer.create(this, R.raw.bgm)
         bgm.isLooping = true
         bgm.start()
     }
