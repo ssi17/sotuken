@@ -18,10 +18,88 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/setting_text"
-            android:text="SETTING"
+            android:id="@+id/setting_title"
+            android:text="@string/setting_title"
+            android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/setting_text"
+            android:text="@string/setting_text"
+            app:layout_constraintTop_toBottomOf="@id/setting_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/setting_sound"
+            android:text="@string/setting_sound"
+            app:layout_constraintTop_toBottomOf="@id/setting_text"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/sound_switch"
+            android:text="@string/sound_switch"
+            android:checked="true"
+            android:background="@drawable/frame_style"
+            app:layout_constraintTop_toBottomOf="@id/setting_sound"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/setting_guide"
+            android:text="@string/setting_guide"
+            app:layout_constraintTop_toBottomOf="@id/sound_switch"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tourist_sight_switch"
+            android:text="@string/tourist_sight_switch"
+            android:background="@drawable/frame_style"
+            app:layout_constraintTop_toBottomOf="@id/setting_guide"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/restaurant_switch"
+            android:text="@string/restaurant_switch"
+            android:background="@drawable/frame_style"
+            app:layout_constraintTop_toBottomOf="@id/tourist_sight_switch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/history_switch"
+            android:text="@string/history_switch"
+            android:background="@drawable/frame_style"
+            android:checked="true"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_switch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/trivia_switch"
+            android:text="@string/trivia_switch"
+            android:background="@drawable/frame_style"
+            android:checked="true"
+            app:layout_constraintTop_toBottomOf="@id/history_switch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
