@@ -9,6 +9,9 @@
         <variable
             name="settingFragment"
             type="com.example.myapplication.ui.SettingFragment" />
+        <variable
+            name="mainActivity"
+            type="com.example.myapplication.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

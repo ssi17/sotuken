@@ -34,7 +34,11 @@ class SettingFragment: Fragment() {
     }
 
     private fun setButton() {
-        MainActivity().setButton(binding!!.startButton, sharedViewModel.startFlag)
+        requireActivity().let {
+            if(it is MainActivity) {
+                it.setButton(binding!!.startButton, sharedViewModel.startFlag)
+            }
+        }
     }
 
     fun pushButton() {
