@@ -10,8 +10,8 @@
             name="settingFragment"
             type="com.example.myapplication.ui.SettingFragment" />
         <variable
-            name="mainActivity"
-            type="com.example.myapplication.MainActivity" />
+            name="viewModel"
+            type="com.example.myapplication.model.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,12 +47,13 @@
             app:layout_constraintTop_toBottomOf="@id/setting_text"
             app:layout_constraintStart_toStartOf="parent" />
 
+<!--        バックサウンドスイッチ-->
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/sound_switch"
             android:text="@string/sound_switch"
-            android:checked="true"
+            android:checked="@{viewModel.bgmFlag}"
             android:background="@drawable/frame_style"
             android:onClick="@{() -> settingFragment.switchBgm()}"
             app:layout_constraintTop_toBottomOf="@id/setting_sound"
@@ -69,48 +70,54 @@
             app:layout_constraintTop_toBottomOf="@id/sound_switch"
             app:layout_constraintStart_toStartOf="parent" />
 
-<!--        観光スポット-->
+<!--        観光スポットswitch-->
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tourist_sight_switch"
             android:text="@string/tourist_sight_switch"
             android:background="@drawable/frame_style"
+            android:checked="@{viewModel.touristSightFlag}"
+            android:onClick="@{() -> viewModel.switchTouristSightFlag()}"
             app:layout_constraintTop_toBottomOf="@id/setting_guide"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-<!--        飲食店-->
+<!--        飲食店スイッチ-->
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/restaurant_switch"
             android:text="@string/restaurant_switch"
             android:background="@drawable/frame_style"
+            android:checked="@{viewModel.restaurantFlag}"
+            android:onClick="@{() -> viewModel.switchRestaurantFlag()}"
             app:layout_constraintTop_toBottomOf="@id/tourist_sight_switch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-<!--        歴史-->
+<!--        歴史スイッチ-->
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/history_switch"
             android:text="@string/history_switch"
             android:background="@drawable/frame_style"
-            android:checked="true"
+            android:checked="@{viewModel.historyFlag}"
+            android:onClick="@{() -> viewModel.switchHistoryFlag()}"
             app:layout_constraintTop_toBottomOf="@id/restaurant_switch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-<!--        雑学-->
+<!--        雑学スイッチ-->
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/trivia_switch"
             android:text="@string/trivia_switch"
             android:background="@drawable/frame_style"
-            android:checked="true"
+            android:checked="@{viewModel.triviaFlag}"
+            android:onClick="@{() -> viewModel.switchTriviaFlag()}"
             app:layout_constraintTop_toBottomOf="@id/history_switch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

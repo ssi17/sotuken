@@ -28,8 +28,11 @@ class SettingFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.settingFragment = this
 
+        binding?.apply {
+            settingFragment = this@SettingFragment
+            viewModel = sharedViewModel
+        }
         setButton()
     }
 
@@ -56,6 +59,7 @@ class SettingFragment: Fragment() {
                 }
             }
         }
+        sharedViewModel.switchBgmFlag()
     }
 
     override fun onDestroyView() {
