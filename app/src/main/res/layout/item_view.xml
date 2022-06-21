@@ -7,6 +7,7 @@
     android:layout_height="150dp"
     android:layout_marginBottom="8dp">
 
+<!--    各アイテムのサムネイル画像-->
     <ImageView
         android:layout_width="200dp"
         android:layout_height="100dp"
@@ -16,6 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+<!--    お気に入り登録のボタン-->
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,6 +27,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+<!--    各アイテムのタイトル-->
     <TextView
         android:id="@+id/item_title"
         android:layout_width="wrap_content"
@@ -34,6 +37,7 @@
         app:layout_constraintStart_toEndOf="@id/item_image"
         app:layout_constraintTop_toTopOf="@id/item_image" />
 
+<!--    各アイテムの説明-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,21 +46,25 @@
         app:layout_constraintStart_toEndOf="@id/item_image"
         app:layout_constraintBottom_toTopOf="@id/item_page" />
 
+<!--    各アイテムの紹介サイト-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:id="@+id/item_page"
         android:text="@string/item_page"
+        android:clickable="true"
         app:layout_constraintStart_toEndOf="@id/item_image"
         app:layout_constraintEnd_toStartOf="@id/item_map"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+<!--    各アイテムをマップで表示-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/item_map"
         android:text="@string/item_map"
+        android:clickable="true"
         app:layout_constraintStart_toEndOf="@id/item_page"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/item_page" />

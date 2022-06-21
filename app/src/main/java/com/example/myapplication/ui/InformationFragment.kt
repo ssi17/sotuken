@@ -88,7 +88,8 @@ class InformationFragment: Fragment() {
     private fun setRecyclerView() {
         getInformation()
         recyclerView = binding!!.recyclerView
-        recyclerView.adapter = RecyclerAdapter(sharedViewModel.images, sharedViewModel.favoriteFlag, sharedViewModel.titles, sharedViewModel.describes)
+        recyclerView.adapter =
+            RecyclerAdapter(sharedViewModel.images, sharedViewModel.favoriteFlag, sharedViewModel.titles, sharedViewModel.describes, sharedViewModel.pages)
         recyclerView.layoutManager = LinearLayoutManager(MainActivity())
     }
 
@@ -97,6 +98,7 @@ class InformationFragment: Fragment() {
         sharedViewModel.getFavoriteFlag()
         sharedViewModel.getTitles()
         sharedViewModel.getDescribes()
+        sharedViewModel.getPages()
     }
 
     override fun onDestroyView() {

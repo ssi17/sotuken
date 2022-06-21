@@ -12,6 +12,7 @@ class MainViewModel: ViewModel() {
     var titles: List<Int>? = null
     var describes: List<Int>? = null
     var favoriteFlag: List<Boolean>? = null
+    var pages: List<String>? = null
 
     private val _bgmFlag = MutableLiveData<Boolean>()
     val bgmFlag: LiveData<Boolean> = _bgmFlag
@@ -46,6 +47,10 @@ class MainViewModel: ViewModel() {
 
     fun getDescribes() {
         describes = listOf(R.string.describe1, R.string.describe2)
+    }
+
+    fun getPages() {
+        pages = listOf("https://oki-park.jp/shurijo/about/", "https://churaumi.okinawa/")
     }
 
     fun getFavoriteFlag() {

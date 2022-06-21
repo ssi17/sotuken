@@ -21,8 +21,8 @@
     <string name="favorite_button_description">お気に入りに登録するためのボタンです</string>
     <string name="title1">首里城</string>
     <string name="title2">美ら海水族館</string>
-    <string name="describe1">首里城の説明です。\nああああああああああ\nああああああああああ</string>
-    <string name="describe2">美ら海水族館の説明です。\nああああああああああ\nああああああああああ</string>
+    <string name="describe1">首里城は、琉球王朝の王城で沖縄県内最大規模の城です。</string>
+    <string name="describe2">美ら海水族館は、海洋博公園にある人気スポットです。</string>
     <string name="item_page">≫ページへ</string>
     <string name="item_map">≫マップを開く</string>
 </resources>
