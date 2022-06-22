@@ -4,10 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/drawable/frame_style.xml" value="0.1" />
+        <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/drawable/start_button.xml" value="0.1095" />
         <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/layout/activity_main.xml" value="0.12613981762917933" />
+        <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/layout/fragment_about.xml" value="0.1" />
         <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/layout/fragment_favorite.xml" value="0.12613981762917933" />
         <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/layout/fragment_information.xml" value="0.259375" />
+        <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/layout/fragment_operation.xml" value="0.259375" />
         <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/layout/fragment_setting.xml" value="0.259375" />
+        <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/layout/item_view.xml" value="0.259375" />
+        <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.259375" />
       </map>
     </option>
   </component>

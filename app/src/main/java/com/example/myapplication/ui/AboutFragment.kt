@@ -8,12 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
-import com.example.myapplication.databinding.FragmentOperationBinding
+import com.example.myapplication.databinding.FragmentAboutBinding
 import com.example.myapplication.model.MainViewModel
 
-class OperationFragment: Fragment() {
+class AboutFragment: Fragment() {
 
-    private var binding: FragmentOperationBinding? = null
+    private var binding: FragmentAboutBinding? = null
     private val sharedViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -21,14 +21,14 @@ class OperationFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val fragmentBinding = FragmentOperationBinding.inflate(inflater, container, false)
+        val fragmentBinding = FragmentAboutBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.operationFragment = this
+        binding?.aboutFragment = this
 
         setButton()
     }

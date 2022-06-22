@@ -24,10 +24,6 @@ class RecyclerAdapter(private val images: List<Int>?, private val favoriteFlag:L
     }
 
     override fun getItemCount(): Int {
-        return if(images == null) {
-            0
-        } else {
-            images!!.size
-        }
+        return images?.size ?: 0
     }
 }

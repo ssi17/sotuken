@@ -40,16 +40,12 @@ class InformationFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.informationFragment = this
 
-        if(sharedViewModel.startFlag) {
+
+        if(sharedViewModel.images == null) {
+            setTopTitle()
+        } else {
             setInformationTitle()
             setRecyclerView()
-        } else {
-            if(sharedViewModel.images == null) {
-                setTopTitle()
-            } else {
-                setInformationTitle()
-                setRecyclerView()
-            }
         }
         setButton()
     }
@@ -68,7 +64,7 @@ class InformationFragment: Fragment() {
     }
 
     private fun setInformationTitle() {
-        binding!!.informationTitle.setText(R.string.information_title)
+        binding!!.informationTitle.setImageResource(R.drawable.information)
     }
 
     fun pushButton() {

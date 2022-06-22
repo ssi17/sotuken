@@ -16,7 +16,7 @@
         android:title="お気に入り" />
 
     <item
-        android:id="@+id/operationFragment"
-        android:icon="@drawable/ic_operation"
+        android:id="@+id/aboutFragment"
+        android:icon="@drawable/ic_about"
         android:title="使い方" />
 </menu>

@@ -35,12 +35,15 @@
         app:layout_constraintTop_toTopOf="@id/item_image" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
         android:id="@+id/item_describe"
         app:layout_constraintTop_toBottomOf="@id/item_title"
         app:layout_constraintStart_toEndOf="@id/item_image"
-        app:layout_constraintBottom_toTopOf="@id/item_page" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/item_page"
+        tools:text="@string/describe1" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -24,8 +24,8 @@
         tools:layout="@layout/fragment_favorite" />
 
     <fragment
-        android:id="@+id/operationFragment"
-        android:name="com.example.myapplication.ui.OperationFragment"
-        android:label="OperationFragment"
-        tools:layout="@layout/fragment_operation" />
+        android:id="@+id/aboutFragment"
+        android:name="com.example.myapplication.ui.AboutFragment"
+        android:label="aboutFragment"
+        tools:layout="@layout/fragment_about" />
 </navigation>
