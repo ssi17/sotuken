@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 
 class ViewHolder(item: View): RecyclerView.ViewHolder(item) {
-//    val list: TextView = item.findViewById(R.id.text_item)
     val images: ImageView = item.findViewById(R.id.item_image)
     val favorites: ImageButton = item.findViewById(R.id.favorite_button)
     val titles: TextView = item.findViewById(R.id.item_title)

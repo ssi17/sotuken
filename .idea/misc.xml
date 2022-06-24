@@ -12,7 +12,10 @@
         <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/layout/fragment_operation.xml" value="0.259375" />
         <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/layout/fragment_setting.xml" value="0.259375" />
         <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/layout/item_view.xml" value="0.259375" />
+<<<<<<< HEAD
         <entry key="..\:/Users/yuu/Desktop/dev/sotuken/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.259375" />
+=======
+>>>>>>> 418cf1880462c4d29fe42234a55f0fd7ca2c4345
       </map>
     </option>
   </component>
