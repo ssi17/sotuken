@@ -87,6 +87,7 @@ class InformationFragment: Fragment() {
         sharedViewModel.getFavoriteFlag()
         sharedViewModel.getTitles()
         sharedViewModel.getDescribes()
+        sharedViewModel.getContents()
     }
 
     override fun onDestroyView() {

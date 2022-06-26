@@ -1,9 +1,14 @@
 package com.example.myapplication.model
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.myapplication.R
+import com.example.myapplication.network.Content
+import com.example.myapplication.network.ContentsApi
+import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
 
@@ -24,12 +29,26 @@ class MainViewModel: ViewModel() {
     private val _triviaFlag = MutableLiveData<Boolean>()
     val triviaFlag: LiveData<Boolean> = _triviaFlag
 
+    private val _contents = MutableLiveData<Content>()
+    val contents: LiveData<Content> = _contents
+
     init {
         _bgmFlag.value = true
         _touristSightFlag.value = false
         _restaurantFlag.value = false
         _historyFlag.value = true
         _triviaFlag.value = true
+    }
+
+    fun getContents() {
+        viewModelScope.launch {
+            try {
+                _contents.value = ContentsApi.retrofitService.getContents("naha").datas[0]
+                Log.d("debug_network", _contents.value!!.title)
+            } catch(e: Exception) {
+                Log.d("debug_network", "failed: ${e.message}")
+            }
+        }
     }
 
     fun changeStartFlag() {
