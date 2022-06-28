@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "city": "那覇市",
+    "title": "首里城",
+    "describe": "首里城は、琉球王朝の王城で沖縄県内最大規模の城です。",
+    "img": "syurizyo",
+    "url": "https://oki-park.jp/shurijo/about/",
+    "category": "観光スポット"
+  },
+  {
+    "id": "2",
+    "city": "本部町",
+    "title": "美ら海水族館",
+    "describe": "美ら海水族館は、海洋博公園にある人気スポットです。",
+    "img": "tyuraumi",
+    "url": "https://churaumi.okinawa/",
+    "category": "観光スポット"
+  },
+  {
+    "id": "3",
+    "city": "那覇市",
+    "title": "沖縄県立博物館・美術館",
+    "describe": "沖縄県立博物館･美術館は、博物館と美術館をあわせ持つ、県内初の複合文化施設です。",
+    "img": "kenrituhakubutukan",
+    "url": "https://okimu.jp/",
+    "category": "観光スポット"
+  }
+]

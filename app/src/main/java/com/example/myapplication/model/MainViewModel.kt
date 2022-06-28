@@ -1,5 +1,6 @@
 package com.example.myapplication.model
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,14 +10,14 @@ import com.example.myapplication.R
 import com.example.myapplication.network.Content
 import com.example.myapplication.network.ContentsApi
 import kotlinx.coroutines.launch
+import android.content.res.AssetManager
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import org.json.JSONArray
 
-class MainViewModel: ViewModel() {
+class MainViewModel : ViewModel() {
 
     var startFlag = false
-    var images: List<Int>? = null
-    var titles: List<Int>? = null
-    var describes: List<Int>? = null
-    var favoriteFlag: List<Boolean>? = null
 
     private val _bgmFlag = MutableLiveData<Boolean>()
     val bgmFlag: LiveData<Boolean> = _bgmFlag
@@ -29,8 +30,7 @@ class MainViewModel: ViewModel() {
     private val _triviaFlag = MutableLiveData<Boolean>()
     val triviaFlag: LiveData<Boolean> = _triviaFlag
 
-    private val _contents = MutableLiveData<Content>()
-    val contents: LiveData<Content> = _contents
+    var contents: MutableList<Content> = mutableListOf()
 
     init {
         _bgmFlag.value = true
@@ -40,35 +40,28 @@ class MainViewModel: ViewModel() {
         _triviaFlag.value = true
     }
 
-    fun getContents() {
-        viewModelScope.launch {
-            try {
-                _contents.value = ContentsApi.retrofitService.getContents("naha").datas[0]
-                Log.d("debug_network", _contents.value!!.title)
-            } catch(e: Exception) {
-                Log.d("debug_network", "failed: ${e.message}")
+    fun getContents(jsonArray: JSONArray, city: String) {
+        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+        val adapter = moshi.adapter(Content::class.java)
+        for(i in 0 until jsonArray.length()) {
+            val cityName = jsonArray.getJSONObject(i).getString("city").toString()
+            Log.d("debug_json", "cityName = $cityName")
+            if (cityName == city) {
+                Log.d("debug_json", "contents.add()")
+                if(when(jsonArray.getJSONObject(i).getString("category").toString()) {
+                    "観光スポット" -> _touristSightFlag.value!!
+                    "飲食店" -> _restaurantFlag.value!!
+                    "歴史" -> _historyFlag.value!!
+                    else -> _triviaFlag.value!!
+                }) {
+                    contents.add(adapter.fromJson(jsonArray.getJSONObject(i).toString()) as Content)
+                }
             }
         }
     }
 
     fun changeStartFlag() {
         startFlag = !startFlag
-    }
-
-    fun getImages() {
-        images = listOf(R.drawable.syurizyo, R.drawable.tyuraumi)
-    }
-
-    fun getTitles() {
-        titles = listOf(R.string.title1, R.string.title2)
-    }
-
-    fun getDescribes() {
-        describes = listOf(R.string.describe1, R.string.describe2)
-    }
-
-    fun getFavoriteFlag() {
-        favoriteFlag = listOf(false, false)
     }
 
     fun switchBgmFlag() {

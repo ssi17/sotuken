@@ -12,6 +12,10 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentInformationBinding
 import com.example.myapplication.model.MainViewModel
+import com.example.myapplication.network.Content
+import org.json.JSONArray
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 class InformationFragment: Fragment() {
 
@@ -33,8 +37,7 @@ class InformationFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.informationFragment = this
 
-
-        if(sharedViewModel.images == null) {
+        if (sharedViewModel.contents.size == 0) {
             setTopTitle()
         } else {
             setInformationTitle()
@@ -45,7 +48,7 @@ class InformationFragment: Fragment() {
 
     private fun setButton() {
         requireActivity().let {
-            if(it is MainActivity) {
+            if (it is MainActivity) {
                 it.setButton(binding!!.startButton, sharedViewModel.startFlag)
             }
         }
@@ -64,30 +67,30 @@ class InformationFragment: Fragment() {
         sharedViewModel.changeStartFlag()
         setButton()
 
-        if(sharedViewModel.startFlag) {
-            if(sharedViewModel.images == null) {
+        if (sharedViewModel.startFlag) {
+            if (sharedViewModel.contents.size == 0) {
                 binding!!.topTitle.setImageDrawable(null)
                 binding!!.startText.text = null
             }
             setInformationTitle()
             setRecyclerView()
+            getContents()
         }
     }
 
     private fun setRecyclerView() {
-        getInformation()
         recyclerView = binding!!.recyclerView
         recyclerView.adapter =
-            RecyclerAdapter(sharedViewModel.images, sharedViewModel.favoriteFlag, sharedViewModel.titles, sharedViewModel.describes)
-        recyclerView.layoutManager = LinearLayoutManager(MainActivity())
+            RecyclerAdapter(sharedViewModel.contents)
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
     }
 
-    private fun getInformation() {
-        sharedViewModel.getImages()
-        sharedViewModel.getFavoriteFlag()
-        sharedViewModel.getTitles()
-        sharedViewModel.getDescribes()
-        sharedViewModel.getContents()
+    private fun getContents() {
+        val assetManager = resources.assets
+        val file = assetManager.open("Contents.json")
+        val br = BufferedReader(InputStreamReader(file))
+        val jsonArray = JSONArray(br.readText())
+        sharedViewModel.getContents(jsonArray, "那覇市")
     }
 
     override fun onDestroyView() {

@@ -2,16 +2,15 @@ package com.example.myapplication.ui
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.network.Content
 
 class RecyclerAdapter(
-    private val images: List<Int>?,
-    private val favoriteFlag:List<Boolean>?,
-    private val titles: List<Int>?,
-    private val describes: List<Int>?
+    private val contents: List<Content>
     ): RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false)
@@ -19,31 +18,33 @@ class RecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val context = holder.item.context
+
         // サムネイル画像を設定
-        holder.images.setImageResource(images?.get(position) as Int)
+        val resId = context.resources.getIdentifier(contents[position].img, "drawable", context.packageName)
+        holder.images.setImageResource(resId)
 
         // お気に入り登録ボタンの設定
-        if(favoriteFlag?.get(position) == true) {
-            holder.favorites.setImageResource(R.drawable.favorite_button)
-        } else {
-            holder.favorites.setImageResource(R.drawable.not_favorite_button)
-        }
+//        if(favoriteFlag?.get(position) == true) {
+//            holder.favorites.setImageResource(R.drawable.favorite_button)
+//        } else {
+        holder.favorites.setImageResource(R.drawable.not_favorite_button)
+//        }
 
         // タイトルを設定
-        holder.titles.setText(titles?.get(position) as Int)
+        holder.titles.text = contents[position].title
 
         // 説明を設定
-        holder.describes.setText(describes?.get(position) as Int)
+        holder.describes.text = contents[position].describe
 
-        val context = holder.item.context
         // ページへ
         holder.pages.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://oki-park.jp/shurijo/about"))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(contents[position].url))
             context.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int {
-        return images?.size ?: 0
+        return contents.size ?: 0
     }
 }
