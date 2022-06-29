@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.model.MainViewModel
 import com.example.myapplication.network.Content
 
 class RecyclerAdapter(
@@ -25,11 +26,14 @@ class RecyclerAdapter(
         holder.images.setImageResource(resId)
 
         // お気に入り登録ボタンの設定
-//        if(favoriteFlag?.get(position) == true) {
-//            holder.favorites.setImageResource(R.drawable.favorite_button)
-//        } else {
-        holder.favorites.setImageResource(R.drawable.not_favorite_button)
-//        }
+        holder.favorites.setOnClickListener {
+            contents[position].flag = !contents[position].flag
+        }
+        if(contents[position].flag) {
+            holder.favorites.setImageResource(R.drawable.favorite_button)
+        } else {
+            holder.favorites.setImageResource(R.drawable.not_favorite_button)
+        }
 
         // タイトルを設定
         holder.titles.text = contents[position].title
@@ -45,6 +49,6 @@ class RecyclerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return contents.size ?: 0
+        return contents.size
     }
 }

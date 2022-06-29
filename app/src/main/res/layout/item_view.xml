@@ -47,7 +47,7 @@
         app:layout_constraintStart_toEndOf="@id/item_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/item_page"
-        tools:text="@string/describe1" />
+        tools:text="aaa" />
 
 <!--    各アイテムの紹介サイト-->
     <TextView
