@@ -1,82 +1,86 @@
 [
   {
     "id": 1,
+    "name": "首里城",
     "city": "那覇市",
-    "title": "首里城",
-    "describe": "首里城は、琉球王朝の王城で沖縄県内最大規模の城です。",
-    "img": "syurizyo",
-    "url": "https://oki-park.jp/shurijo/about/",
     "category": "観光スポット",
-    "flag": false
+    "article_id": 1
   },
   {
     "id": 2,
+    "name": "美ら海水族館",
     "city": "本部町",
-    "title": "美ら海水族館",
-    "describe": "美ら海水族館は、海洋博公園にある人気スポットです。",
-    "img": "tyuraumi",
-    "url": "https://churaumi.okinawa/",
     "category": "観光スポット",
-    "flag": false
+    "article_id": 2
   },
   {
     "id": 3,
+    "name": "沖縄県立博物館・美術館",
     "city": "那覇市",
-    "title": "沖縄県立博物館・美術館",
-    "describe": "沖縄県立博物館･美術館は、博物館と美術館をあわせ持つ、県内初の複合文化施設です。",
-    "img": "kenrituhakubutukan",
-    "url": "https://okimu.jp/",
     "category": "観光スポット",
-    "flag": false
+    "article_id": 3
   },
   {
     "id": 4,
+    "name": "玉泉洞",
     "city": "南城市",
-    "title": "玉泉洞",
-    "describe": "玉泉洞は、全長5000mの国内最大級の規模を誇る鍾乳洞です。",
-    "img": "gyokusendou",
-    "url": "https://www.gyokusendo.co.jp/okinawaworld/7recommendations/#feature1",
     "category": "観光スポット",
-    "flag": false
+    "article_id": 4
   },
   {
     "id": 5,
+    "name": "平和記念公園",
     "city": "糸満市",
-    "title": "平和記念公園",
-    "describe": "平和祈念公園は、沖縄戦最大の激戦地であり終焉地でもあります。園内には沖縄戦に関する様々な施設があります。",
-    "img": "heiwakinenkouen",
-    "url": "https://heiwa-irei-okinawa.jp/",
     "category": "観光スポット",
-    "flag": false
+    "article_id": 5
   },
   {
     "id": 6,
+    "name": "ひめゆりの塔",
     "city": "糸満市",
-    "title": "ひめゆりの塔",
-    "describe": "ひめゆりの塔は、ひめゆり学徒隊の最後の地とされている伊原第三外科壕の上に建てられた慰霊碑です。",
-    "img": "himeyurinotou",
-    "url": "",
     "category": "観光スポット",
-    "flag": false
+    "article_id": 6
   },
   {
     "id": 7,
+    "name": "トロピカルビーチ",
     "city": "宜野湾市",
-    "title": "トロピカルビーチ",
-    "describe": "トロピカルビーチは、外国人観光客を始め県内外から若い人が集まるビーチです。トロピーと呼ばれ、地元からも愛されています。",
-    "img": "toropikarubeach",
-    "url": "http://www.ginowantropicalbeach.jp/",
     "category": "観光スポット",
-    "flag": false
+    "article_id": 7
   },
   {
     "id": 8,
+    "name": "美らSUNビーチ",
     "city": "豊見城市",
-    "title": "美らSUNビーチ",
-    "describe": "美らSUNビーチは、全長700mある県内最大級の人工ビーチです。空港からも近い距離にあります。",
-    "img": "tyurasanbeach",
-    "url": "https://churasun-beach.com/",
     "category": "観光スポット",
-    "flag": false
+    "article_id": 8
+  },
+  {
+    "id": 9,
+    "name": "識名園",
+    "city": "那覇市",
+    "category": "観光スポット",
+    "article_id": 9
+  },
+  {
+    "id": 10,
+    "name": "玉陵",
+    "city": "那覇市",
+    "category": "観光スポット",
+    "article_id": 10
+  },
+  {
+    "id": 11,
+    "name": "園比屋武御嶽",
+    "city": "那覇市",
+    "category": "観光スポット",
+    "article_id": 11
+  },
+  {
+    "id": 12,
+    "name": "弁ヶ岳公園",
+    "city": "那覇市",
+    "category": "観光スポット",
+    "article_id": 12
   }
 ]
