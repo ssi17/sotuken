@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.model.MainViewModel
-import com.example.myapplication.network.Content
+import com.example.myapplication.json.Article
+
 
 class RecyclerAdapter(
-    private val contents: List<Content>
+    private val articles: List<Article>
     ): RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false)
@@ -22,33 +22,34 @@ class RecyclerAdapter(
         val context = holder.item.context
 
         // サムネイル画像を設定
-        val resId = context.resources.getIdentifier(contents[position].img, "drawable", context.packageName)
+        val resId = context.resources.getIdentifier(articles[position].img, "drawable", context.packageName)
         holder.images.setImageResource(resId)
 
         // お気に入り登録ボタンの設定
-        holder.favorites.setOnClickListener {
-            contents[position].flag = !contents[position].flag
-        }
-        if(contents[position].flag) {
-            holder.favorites.setImageResource(R.drawable.favorite_button)
-        } else {
-            holder.favorites.setImageResource(R.drawable.not_favorite_button)
-        }
+        holder.favorites.setImageResource(R.drawable.favorite_button)
+//        holder.favorites.setOnClickListener {
+//            articles[position].flag = !articles[position].flag
+//        }
+//        if(articles[position].flag) {
+//            holder.favorites.setImageResource(R.drawable.favorite_button)
+//        } else {
+//            holder.favorites.setImageResource(R.drawable.not_favorite_button)
+//        }
 
         // タイトルを設定
-        holder.titles.text = contents[position].title
+        holder.titles.text = articles[position].name
 
         // 説明を設定
-        holder.describes.text = contents[position].describe
+        holder.describes.text = articles[position].describe
 
         // ページへ
         holder.pages.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(contents[position].url))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(articles[position].url))
             context.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int {
-        return contents.size
+        return articles.size
     }
 }

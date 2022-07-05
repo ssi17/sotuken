@@ -43,7 +43,6 @@ class InformationFragment: Fragment() {
     ) { isGranted: Boolean ->
         if (isGranted) {
             // 使用が許可された
-            //locationStart()
             requestingLocationUpdates = true
         } else {
             // それでも拒否された時の対応
@@ -73,6 +72,8 @@ class InformationFragment: Fragment() {
             setInformationTitle()
             setRecyclerView()
         }
+
+        // 再生ボタンに画像を設定
         setButton()
 
         //位置情報の権限許可
@@ -85,13 +86,10 @@ class InformationFragment: Fragment() {
             requestingLocationUpdates = true
         }
 
-        Log.d("debug_location", "location")
-
         locationRequest = LocationRequest.create()
         locationRequest.setPriority(
             LocationRequest.PRIORITY_HIGH_ACCURACY)
-            .setFastestInterval(5000)
-            .setInterval(10000)
+            .setFastestInterval(30000).interval = 30000
 
         //位置情報に変更があったら呼び出される
         locationCallback = object : LocationCallback() {
@@ -145,28 +143,30 @@ class InformationFragment: Fragment() {
     private fun setRecyclerView() {
         recyclerView = binding!!.recyclerView
         recyclerView.adapter =
-            RecyclerAdapter(sharedViewModel.contents)
+            RecyclerAdapter(sharedViewModel.articles)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
     }
 
     private fun getContents(cityName: String) {
         val assetManager = resources.assets
-        val file = assetManager.open("Contents.json")
-        val br = BufferedReader(InputStreamReader(file))
-        val jsonArray = JSONArray(br.readText())
-        sharedViewModel.getContents(jsonArray, cityName)
+        val contentsFile = assetManager.open("Contents.json")
+        val articlesFile = assetManager.open("Articles.json")
+        var br = BufferedReader(InputStreamReader(contentsFile))
+        val contentsArray = JSONArray(br.readText())
+        br = BufferedReader(InputStreamReader(articlesFile))
+        val articlesArray = JSONArray(br.readText())
+        sharedViewModel.getContents(contentsArray, articlesArray, cityName)
+
+        setRecyclerView()
     }
 
     //緯度経度をもとに住所の取得
     private fun getAddress(lat: Double, lng: Double) {
-        Log.d("debug", "getAddress()")
         val geocoder = Geocoder(requireActivity())
-        Log.d("debug", "Geocoder()")
         val address = geocoder.getFromLocation(lat, lng, 1)
-        Log.d("debug", "getFromLocation()")
 
         //位置情報の表示
-        Log.d("debug", "市町村：" + address[0].locality.toString())
+        Log.d("debug_location", "市町村：" + address[0].locality.toString())
 
         if(sharedViewModel.startFlag) {
             getContents(address[0].locality.toString())
@@ -182,7 +182,6 @@ class InformationFragment: Fragment() {
             Log.d("debug_location", "startLocation() return")
             return
         }
-
         fusedLocationClient.requestLocationUpdates(
             locationRequest,
             locationCallback,

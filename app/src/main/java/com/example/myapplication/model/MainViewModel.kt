@@ -1,5 +1,6 @@
 package com.example.myapplication.model
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,13 +8,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.R
-import com.example.myapplication.network.Content
 import com.example.myapplication.network.ContentsApi
 import kotlinx.coroutines.launch
 import android.content.res.AssetManager
+import com.example.myapplication.json.Article
+import com.example.myapplication.json.Content
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.json.JSONArray
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 class MainViewModel : ViewModel() {
 
@@ -38,6 +42,8 @@ class MainViewModel : ViewModel() {
 
     // コンテンツのリスト
     var contents: MutableList<Content> = mutableListOf()
+    // アーティクルのリスト
+    var articles: MutableList<Article> = mutableListOf()
 
     // 設定画面のスイッチの初期値
     init {
@@ -46,35 +52,6 @@ class MainViewModel : ViewModel() {
         _restaurantFlag.value = false
         _historyFlag.value = true
         _triviaFlag.value = true
-    }
-
-    // JSONファイルを読み取り、contentsへ格納する
-    fun getContents(jsonArray: JSONArray, city: String) {
-
-        // JSONを扱うためのクラス
-        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-        // JSONのデータを格納するクラスを指定
-        val adapter = moshi.adapter(Content::class.java)
-
-        // コンテンツリストの初期化
-        contents = mutableListOf()
-
-        for(i in 0 until jsonArray.length()) {
-            // JSONファイルの要素から市町村を取得
-            val cityName = jsonArray.getJSONObject(i).getString("city").toString()
-            // 引数で受け取った市町村と一致するか判断
-            if (cityName == city) {
-                // 設定画面のスイッチの状態によりコンテンツリストに追加するかを判断
-                if(when(jsonArray.getJSONObject(i).getString("category").toString()) {
-                    "観光スポット" -> _touristSightFlag.value!!
-                    "飲食店" -> _restaurantFlag.value!!
-                    "歴史" -> _historyFlag.value!!
-                    else -> _triviaFlag.value!!
-                }) {
-                    contents.add(adapter.fromJson(jsonArray.getJSONObject(i).toString()) as Content)
-                }
-            }
-        }
     }
 
     // 情報発信のON/OFF
@@ -105,5 +82,49 @@ class MainViewModel : ViewModel() {
     // 雑学のON/OFF
     fun switchTriviaFlag() {
         _triviaFlag.value = !_triviaFlag.value!!
+    }
+
+    fun getContents(contentsArray: JSONArray, articlesArray: JSONArray, city: String) {
+        // JSONを扱うためのクラス
+        val moshi1 = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+        // JSONのデータを格納するクラスを指定
+        val adapter1 = moshi1.adapter(Content::class.java)
+
+        contents = mutableListOf()
+        articles = mutableListOf()
+
+        val articleIds: MutableSet<Int> = mutableSetOf()
+
+        for(i in 0 until contentsArray.length()) {
+            // 市町村名を取得
+            val cityName = contentsArray.getJSONObject(i).getString("city").toString()
+            if(cityName == city) {
+                if(when(contentsArray.getJSONObject(i).getString("category").toString()) {
+                        "観光スポット" -> _touristSightFlag.value!!
+                        "飲食店" -> _restaurantFlag.value!!
+                        "歴史" -> _historyFlag.value!!
+                        else -> _triviaFlag.value!!
+                }) {
+                    // Contentインスタンスを作成し、リストに保存
+                    val obj = adapter1.fromJson(contentsArray.getJSONObject(i).toString()) as Content
+                    contents.add(obj)
+
+                    // アーティクルIDを取得
+                    for(id in obj.articleId) {
+                        articleIds.add(id)
+                    }
+                }
+            }
+        }
+
+        val moshi2 = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+        val adapter2 = moshi2.adapter(Article::class.java)
+        for(i in 0 until articlesArray.length()) {
+            val id = articlesArray.getJSONObject(i).getInt("id")
+            if(articleIds.contains(id)) {
+                articles.add(adapter2.fromJson(articlesArray.getJSONObject(i).toString()) as Article)
+            }
+        }
+        Log.d("debug_json", "articles.size:${articles.size}")
     }
 }

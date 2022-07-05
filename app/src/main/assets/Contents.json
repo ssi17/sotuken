@@ -1,86 +1,74 @@
 [
   {
     "id": 1,
-    "name": "首里城",
     "city": "那覇市",
     "category": "観光スポット",
-    "article_id": 1
+    "article_id": [1]
   },
   {
     "id": 2,
-    "name": "美ら海水族館",
     "city": "本部町",
     "category": "観光スポット",
-    "article_id": 2
+    "article_id": [2]
   },
   {
     "id": 3,
-    "name": "沖縄県立博物館・美術館",
     "city": "那覇市",
     "category": "観光スポット",
-    "article_id": 3
+    "article_id": [3]
   },
   {
     "id": 4,
-    "name": "玉泉洞",
     "city": "南城市",
     "category": "観光スポット",
-    "article_id": 4
+    "article_id": [4]
   },
   {
     "id": 5,
-    "name": "平和記念公園",
     "city": "糸満市",
     "category": "観光スポット",
-    "article_id": 5
+    "article_id": [5]
   },
   {
     "id": 6,
-    "name": "ひめゆりの塔",
     "city": "糸満市",
     "category": "観光スポット",
-    "article_id": 6
+    "article_id": [6]
   },
   {
     "id": 7,
-    "name": "トロピカルビーチ",
     "city": "宜野湾市",
     "category": "観光スポット",
-    "article_id": 7
+    "article_id": [7]
   },
   {
     "id": 8,
-    "name": "美らSUNビーチ",
     "city": "豊見城市",
     "category": "観光スポット",
-    "article_id": 8
+    "article_id": [8]
   },
   {
     "id": 9,
-    "name": "識名園",
     "city": "那覇市",
     "category": "観光スポット",
-    "article_id": 9
+    "article_id": [9]
   },
   {
     "id": 10,
-    "name": "玉陵",
     "city": "那覇市",
     "category": "観光スポット",
-    "article_id": 10
+    "article_id": [10]
   },
   {
     "id": 11,
-    "name": "園比屋武御嶽",
     "city": "那覇市",
     "category": "観光スポット",
-    "article_id": 11
+    "article_id": [11]
   },
   {
     "id": 12,
-    "name": "弁ヶ岳公園",
     "city": "那覇市",
     "category": "観光スポット",
-    "article_id": 12
+    "article_id": [12]
   }
 ]
