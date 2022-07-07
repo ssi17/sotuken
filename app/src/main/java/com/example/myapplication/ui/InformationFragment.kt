@@ -152,8 +152,17 @@ class InformationFragment: Fragment() {
     // リサイクラーを設定
     private fun setRecyclerView() {
         recyclerView = binding!!.recyclerView
-        recyclerView.adapter =
-            RecyclerAdapter(sharedViewModel.articles)
+        val adapter = RecyclerAdapter(sharedViewModel.articles)
+        recyclerView.adapter = adapter
+        adapter.favoriteButton = object : RecyclerAdapter.FavoriteButton {
+            override fun pushFavoriteButton(holder: ViewHolder) {
+                Toast.makeText(
+                    requireActivity(),
+                    "${holder.titles.text}をお気に入りに登録しました",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
     }
 

@@ -12,6 +12,7 @@ import com.example.myapplication.json.Article
 class RecyclerAdapter(
     private val articles: List<Article>
     ): RecyclerView.Adapter<ViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false)
         return ViewHolder(itemView)
@@ -34,6 +35,10 @@ class RecyclerAdapter(
 //        } else {
 //            holder.favorites.setImageResource(R.drawable.not_favorite_button)
 //        }
+        holder.favorites.setOnClickListener {
+            favoriteButton?.pushFavoriteButton(holder)
+        }
+
 
         // タイトルを設定
         holder.titles.text = articles[position].name
@@ -56,5 +61,10 @@ class RecyclerAdapter(
 
     override fun getItemCount(): Int {
         return articles.size
+    }
+
+    var favoriteButton: FavoriteButton? = null
+    interface FavoriteButton {
+        fun pushFavoriteButton(holder: ViewHolder)
     }
 }
