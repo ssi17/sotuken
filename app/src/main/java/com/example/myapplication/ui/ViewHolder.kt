@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 
@@ -14,4 +13,5 @@ class ViewHolder(val item: View): RecyclerView.ViewHolder(item) {
     val titles: TextView = item.findViewById(R.id.item_title)
     val describes: TextView = item.findViewById(R.id.item_describe)
     val pages: TextView = item.findViewById(R.id.item_page)
+    val maps: TextView = item.findViewById(R.id.item_map)
 }

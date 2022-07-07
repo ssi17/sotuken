@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.myapplication.MainActivity
-import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentSettingBinding
 import com.example.myapplication.model.MainViewModel
 
@@ -36,6 +35,7 @@ class SettingFragment: Fragment() {
         setButton()
     }
 
+    // 再生ボタンに画像を設定
     private fun setButton() {
         requireActivity().let {
             if(it is MainActivity) {
@@ -44,11 +44,13 @@ class SettingFragment: Fragment() {
         }
     }
 
+    // 再生ボタンが押された時の処理
     fun pushButton() {
         sharedViewModel.changeStartFlag()
         setButton()
     }
 
+    // BGMのON/OFF切り替え
     fun switchBgm() {
         requireActivity().let {
             if(it is MainActivity) {

@@ -90,14 +90,18 @@ class MainViewModel : ViewModel() {
         // JSONのデータを格納するクラスを指定
         val adapter1 = moshi1.adapter(Content::class.java)
 
+        // コンテンツリスト及びアーティクルリストを初期化
         contents = mutableListOf()
         articles = mutableListOf()
 
+        // アーティクルIDを格納するセット
         val articleIds: MutableSet<Int> = mutableSetOf()
 
+        // コンテンツリストの作成
         for(i in 0 until contentsArray.length()) {
             // 市町村名を取得
             val cityName = contentsArray.getJSONObject(i).getString("city").toString()
+            // 指定された市町村のコンテンツを取得
             if(cityName == city) {
                 if(when(contentsArray.getJSONObject(i).getString("category").toString()) {
                         "観光スポット" -> _touristSightFlag.value!!
@@ -119,9 +123,12 @@ class MainViewModel : ViewModel() {
 
         val moshi2 = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         val adapter2 = moshi2.adapter(Article::class.java)
+        // アーティクルリストを作成
         for(i in 0 until articlesArray.length()) {
             val id = articlesArray.getJSONObject(i).getInt("id")
+            // コンテンツに紐づけられたIDかどうかを判断
             if(articleIds.contains(id)) {
+                // リストに保存
                 articles.add(adapter2.fromJson(articlesArray.getJSONObject(i).toString()) as Article)
             }
         }

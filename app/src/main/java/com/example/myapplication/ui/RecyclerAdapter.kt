@@ -2,7 +2,6 @@ package com.example.myapplication.ui
 
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +25,7 @@ class RecyclerAdapter(
         holder.images.setImageResource(resId)
 
         // お気に入り登録ボタンの設定
-        holder.favorites.setImageResource(R.drawable.favorite_button)
+        holder.favorites.setImageResource(R.drawable.not_favorite_button)
 //        holder.favorites.setOnClickListener {
 //            articles[position].flag = !articles[position].flag
 //        }
@@ -45,6 +44,12 @@ class RecyclerAdapter(
         // ページへ
         holder.pages.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(articles[position].url))
+            context.startActivity(intent)
+        }
+
+        // マップを開く
+        holder.maps.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(articles[position].map))
             context.startActivity(intent)
         }
     }

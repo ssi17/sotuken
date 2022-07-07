@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -20,7 +21,6 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentInformationBinding
 import com.example.myapplication.model.MainViewModel
-import com.example.myapplication.network.Content
 import org.json.JSONArray
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -32,10 +32,14 @@ class InformationFragment: Fragment() {
     private val sharedViewModel: MainViewModel by activityViewModels()
     private lateinit var recyclerView: RecyclerView
 
+    // 位置情報関係の変数
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var requestingLocationUpdates: Boolean = false
+
+    // 現在地の市町村名を保持
+    private var currentLocation = ""
 
     //位置情報使用の権限許可を確認
     private val requestPermissionLauncher = registerForActivityResult(
@@ -66,11 +70,12 @@ class InformationFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.informationFragment = this
 
+        // 再生状態かどうかを判断
         if (sharedViewModel.contents.size == 0 && !sharedViewModel.startFlag) {
             setTopTitle()
         } else {
             setInformationTitle()
-            setRecyclerView()
+            getContents(currentLocation)
         }
 
         // 再生ボタンに画像を設定
@@ -94,7 +99,6 @@ class InformationFragment: Fragment() {
         //位置情報に変更があったら呼び出される
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
-                Log.d("debug_location", "onLocationResult()")
                 for(location in locationResult.locations) {
                     val str1 = "Latitude:" + location.latitude
                     val str2 = "Longitude:" + location.longitude
@@ -125,21 +129,27 @@ class InformationFragment: Fragment() {
         binding!!.informationTitle.setImageResource(R.drawable.information)
     }
 
+    // 再生ボタンが押されたときに呼び出される
     fun pushButton() {
+        // 再生・停止を切り替え
         sharedViewModel.changeStartFlag()
         setButton()
 
+        // 再生状態かどうかを判断
         if (sharedViewModel.startFlag) {
+            // トップタイトルと再生ボタンの説明文の非表示にする
             if (sharedViewModel.contents.size == 0) {
                 binding!!.topTitle.setImageDrawable(null)
                 binding!!.startText.text = null
             }
+
             setInformationTitle()
             getContents("")
             setRecyclerView()
         }
     }
 
+    // リサイクラーを設定
     private fun setRecyclerView() {
         recyclerView = binding!!.recyclerView
         recyclerView.adapter =
@@ -147,14 +157,21 @@ class InformationFragment: Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
     }
 
+    // JSONからコンテンツを取得
     private fun getContents(cityName: String) {
+        // asset
         val assetManager = resources.assets
+
+        // Contents.json
         val contentsFile = assetManager.open("Contents.json")
-        val articlesFile = assetManager.open("Articles.json")
         var br = BufferedReader(InputStreamReader(contentsFile))
         val contentsArray = JSONArray(br.readText())
+
+        // Articles.json
+        val articlesFile = assetManager.open("Articles.json")
         br = BufferedReader(InputStreamReader(articlesFile))
         val articlesArray = JSONArray(br.readText())
+
         sharedViewModel.getContents(contentsArray, articlesArray, cityName)
 
         setRecyclerView()
@@ -165,14 +182,17 @@ class InformationFragment: Fragment() {
         val geocoder = Geocoder(requireActivity())
         val address = geocoder.getFromLocation(lat, lng, 1)
 
-        //位置情報の表示
-        Log.d("debug_location", "市町村：" + address[0].locality.toString())
-
         if(sharedViewModel.startFlag) {
-            getContents(address[0].locality.toString())
+            if(currentLocation != address[0].locality.toString()) {
+                currentLocation = address[0].locality.toString()
+                getContents(address[0].locality.toString())
+            }
         }
+        //位置情報の表示
+        Log.d("debug_location", "市町村：$currentLocation")
     }
 
+    // -----位置情報-----
     private fun startLocationUpdates() {
         Log.d("debug_location", "startLocationUpdates()")
         if (ActivityCompat.checkSelfPermission(
@@ -207,6 +227,7 @@ class InformationFragment: Fragment() {
         Log.d("debug_location", "onPause()")
         stopLocationUpdates()
     }
+    // -----位置情報-----
 
     override fun onDestroyView() {
         super.onDestroyView()
