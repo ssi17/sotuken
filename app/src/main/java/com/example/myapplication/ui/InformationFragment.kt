@@ -17,14 +17,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
+import com.example.myapplication.database.AppDatabase
+import com.example.myapplication.database.Favorite
 import com.example.myapplication.databinding.FragmentInformationBinding
 import com.example.myapplication.model.MainViewModel
 import org.json.JSONArray
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import com.google.android.gms.location.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 
 class InformationFragment: Fragment() {
 
@@ -37,9 +42,6 @@ class InformationFragment: Fragment() {
     private lateinit var locationRequest: LocationRequest
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var requestingLocationUpdates: Boolean = false
-
-    // 現在地の市町村名を保持
-    private var currentLocation = ""
 
     //位置情報使用の権限許可を確認
     private val requestPermissionLauncher = registerForActivityResult(
@@ -55,6 +57,9 @@ class InformationFragment: Fragment() {
             toast.show()
         }
     }
+
+    // 現在地の市町村名を保持
+    private var currentLocation = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -152,15 +157,12 @@ class InformationFragment: Fragment() {
     // リサイクラーを設定
     private fun setRecyclerView() {
         recyclerView = binding!!.recyclerView
-        val adapter = RecyclerAdapter(sharedViewModel.articles)
+        val adapter = RecyclerAdapter(sharedViewModel.articles, sharedViewModel.flagList)
         recyclerView.adapter = adapter
+        // お気に入り登録ボタンが押された時の処理
         adapter.favoriteButton = object : RecyclerAdapter.FavoriteButton {
-            override fun pushFavoriteButton(holder: ViewHolder) {
-                Toast.makeText(
-                    requireActivity(),
-                    "${holder.titles.text}をお気に入りに登録しました",
-                    Toast.LENGTH_LONG
-                ).show()
+            override fun pushFavoriteButton(id: Int) {
+                sharedViewModel.changeFavoriteFlag(id)
             }
         }
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())

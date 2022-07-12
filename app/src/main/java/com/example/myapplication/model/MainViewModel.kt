@@ -11,10 +11,15 @@ import com.example.myapplication.R
 import com.example.myapplication.network.ContentsApi
 import kotlinx.coroutines.launch
 import android.content.res.AssetManager
+import androidx.room.Room
+import com.example.myapplication.database.AppDatabase
+import com.example.myapplication.database.Favorite
+import com.example.myapplication.database.FavoriteDao
 import com.example.myapplication.json.Article
 import com.example.myapplication.json.Content
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.CoroutineScope
 import org.json.JSONArray
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -44,6 +49,11 @@ class MainViewModel : ViewModel() {
     var contents: MutableList<Content> = mutableListOf()
     // アーティクルのリスト
     var articles: MutableList<Article> = mutableListOf()
+
+    // データベースを操作するインスタンス
+    var db: AppDatabase? = null
+    // お気に入り登録状況を保持するリスト
+    val flagList: MutableList<Favorite> = mutableListOf()
 
     // 設定画面のスイッチの初期値
     init {
@@ -84,6 +94,7 @@ class MainViewModel : ViewModel() {
         _triviaFlag.value = !_triviaFlag.value!!
     }
 
+    // JSONファイルから記事を取得する処理
     fun getContents(contentsArray: JSONArray, articlesArray: JSONArray, city: String) {
         // JSONを扱うためのクラス
         val moshi1 = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
@@ -123,6 +134,7 @@ class MainViewModel : ViewModel() {
 
         val moshi2 = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         val adapter2 = moshi2.adapter(Article::class.java)
+
         // アーティクルリストを作成
         for(i in 0 until articlesArray.length()) {
             val id = articlesArray.getJSONObject(i).getInt("id")
@@ -132,6 +144,33 @@ class MainViewModel : ViewModel() {
                 articles.add(adapter2.fromJson(articlesArray.getJSONObject(i).toString()) as Article)
             }
         }
-        Log.d("debug_json", "articles.size:${articles.size}")
+    }
+
+    // お気に入り登録情報をデータベースに追加
+    fun addFlag(id: Int) {
+        val dao = db!!.favoriteDao()
+        viewModelScope.launch {
+            dao.addFlag(Favorite(id, false))
+        }
+    }
+
+    // お気に入り登録情報をデータベースから取得
+    fun getAllFlag() {
+        val dao = db!!.favoriteDao()
+        viewModelScope.launch {
+            val list = dao.getAll()
+            for(li in list) {
+                flagList.add(li)
+            }
+        }
+    }
+
+    // データベースのお気に入り登録状況を更新
+    fun changeFavoriteFlag(id: Int) {
+        val flag = !flagList[id-1].flag
+        val dao = db!!.favoriteDao()
+        viewModelScope.launch {
+            dao.changeFlag(id, flag)
+        }
     }
 }

@@ -19,11 +19,12 @@
 
 <!--    お気に入り登録のボタン-->
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:id="@+id/favorite_button"
         android:contentDescription="@string/favorite_button_description"
         android:background="@null"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

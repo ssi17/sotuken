@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.database.Favorite
 import com.example.myapplication.json.Article
 
 
 class RecyclerAdapter(
-    private val articles: List<Article>
+    private val articles: List<Article>,
+    private val flagList: List<Favorite>
     ): RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,19 +28,14 @@ class RecyclerAdapter(
         holder.images.setImageResource(resId)
 
         // お気に入り登録ボタンの設定
-        holder.favorites.setImageResource(R.drawable.not_favorite_button)
-//        holder.favorites.setOnClickListener {
-//            articles[position].flag = !articles[position].flag
-//        }
-//        if(articles[position].flag) {
-//            holder.favorites.setImageResource(R.drawable.favorite_button)
-//        } else {
-//            holder.favorites.setImageResource(R.drawable.not_favorite_button)
-//        }
-        holder.favorites.setOnClickListener {
-            favoriteButton?.pushFavoriteButton(holder)
-        }
+        setFavoriteButton(holder, articles[position].id - 1)
 
+        holder.favorites.setOnClickListener {
+            val id = articles[position].id
+            favoriteButton?.pushFavoriteButton(id)
+            flagList[id-1].flag = !flagList[id-1].flag
+            setFavoriteButton(holder, id - 1)
+        }
 
         // タイトルを設定
         holder.titles.text = articles[position].name
@@ -59,12 +56,20 @@ class RecyclerAdapter(
         }
     }
 
+    private fun setFavoriteButton(holder: ViewHolder, id: Int) {
+        if(flagList[id].flag) {
+            holder.favorites.setImageResource(R.drawable.favorite_button)
+        } else {
+            holder.favorites.setImageResource(R.drawable.star)
+        }
+    }
+
     override fun getItemCount(): Int {
         return articles.size
     }
 
     var favoriteButton: FavoriteButton? = null
     interface FavoriteButton {
-        fun pushFavoriteButton(holder: ViewHolder)
+        fun pushFavoriteButton(id: Int)
     }
 }
