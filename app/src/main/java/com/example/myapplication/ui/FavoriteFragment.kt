@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.MainActivity
 import com.example.myapplication.databinding.FragmentFavoriteBinding
 import com.example.myapplication.model.MainViewModel
@@ -14,6 +16,7 @@ class FavoriteFragment: Fragment() {
 
     private var binding: FragmentFavoriteBinding? = null
     private val sharedViewModel: MainViewModel by activityViewModels()
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +33,8 @@ class FavoriteFragment: Fragment() {
         binding?.favoriteFragment = this
 
         setButton()
+        sharedViewModel.getFavoriteArticle()
+        setRecyclerView()
     }
 
     private fun setButton() {
@@ -43,6 +48,19 @@ class FavoriteFragment: Fragment() {
     fun pushButton() {
         sharedViewModel.changeStartFlag()
         setButton()
+    }
+
+    private fun setRecyclerView() {
+        recyclerView = binding!!.recyclerView
+        val adapter = RecyclerAdapter(sharedViewModel.articles, sharedViewModel.flagList)
+        recyclerView.adapter = adapter
+        // お気に入り登録ボタンが押された時の処理
+        adapter.favoriteButton = object : RecyclerAdapter.FavoriteButton {
+            override fun pushFavoriteButton(id: Int) {
+                sharedViewModel.changeFavoriteFlag(id)
+            }
+        }
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
     }
 
     override fun onDestroyView() {

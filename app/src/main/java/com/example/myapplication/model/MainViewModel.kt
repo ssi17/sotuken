@@ -45,6 +45,10 @@ class MainViewModel : ViewModel() {
     private val _triviaFlag = MutableLiveData<Boolean>()
     val triviaFlag: LiveData<Boolean> = _triviaFlag
 
+    // jsonファイル
+    var contentsArray: JSONArray? = null
+    var articlesArray: JSONArray? = null
+
     // コンテンツのリスト
     var contents: MutableList<Content> = mutableListOf()
     // アーティクルのリスト
@@ -95,11 +99,9 @@ class MainViewModel : ViewModel() {
     }
 
     // JSONファイルから記事を取得する処理
-    fun getContents(contentsArray: JSONArray, articlesArray: JSONArray, city: String) {
-        // JSONを扱うためのクラス
-        val moshi1 = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-        // JSONのデータを格納するクラスを指定
-        val adapter1 = moshi1.adapter(Content::class.java)
+    fun getContents(city: String) {
+        val contentsArray = contentsArray!!
+        val articlesArray = articlesArray!!
 
         // コンテンツリスト及びアーティクルリストを初期化
         contents = mutableListOf()
@@ -107,6 +109,11 @@ class MainViewModel : ViewModel() {
 
         // アーティクルIDを格納するセット
         val articleIds: MutableSet<Int> = mutableSetOf()
+
+        // JSONを扱うためのクラス
+        val moshi1 = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+        // JSONのデータを格納するクラスを指定
+        val adapter1 = moshi1.adapter(Content::class.java)
 
         // コンテンツリストの作成
         for(i in 0 until contentsArray.length()) {
@@ -121,7 +128,7 @@ class MainViewModel : ViewModel() {
                         else -> _triviaFlag.value!!
                 }) {
                     // Contentインスタンスを作成し、リストに保存
-                    val obj = adapter1.fromJson(contentsArray.getJSONObject(i).toString()) as Content
+                    val obj = adapter1.fromJson(contentsArray!!.getJSONObject(i).toString()) as Content
                     contents.add(obj)
 
                     // アーティクルIDを取得
@@ -142,6 +149,21 @@ class MainViewModel : ViewModel() {
             if(articleIds.contains(id)) {
                 // リストに保存
                 articles.add(adapter2.fromJson(articlesArray.getJSONObject(i).toString()) as Article)
+            }
+        }
+    }
+
+    fun getFavoriteArticle() {
+        // 初期化
+        articles = mutableListOf()
+
+        // JSONからインスタンスを作成する準備
+        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+        val adapter = moshi.adapter(Article::class.java)
+
+        for(i in 0 until flagList.size) {
+            if(flagList[i].flag) {
+                articles.add(adapter.fromJson(articlesArray!!.getJSONObject(i).toString()) as Article)
             }
         }
     }

@@ -24,6 +24,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
+            tools:listitem="@layout/item_view" />
+
         <ImageButton
             android:layout_width="64dp"
             android:layout_height="64dp"

@@ -16,6 +16,9 @@ import com.example.myapplication.database.Favorite
 import com.example.myapplication.model.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
+import org.json.JSONArray
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,7 +44,23 @@ class MainActivity : AppCompatActivity() {
         bgm.isLooping = true    // ループ再生をON
         bgm.start()             // BGMを再生
 
-        //
+        // JSONファイルを取得し、ViewModelへ保存
+        val assetManager = resources.assets
+
+        // Contents.json
+        val contentsFile = assetManager.open("Contents.json")
+        var br = BufferedReader(InputStreamReader(contentsFile))
+        val contentsArray = JSONArray(br.readText())
+
+        // Articles.json
+        val articlesFile = assetManager.open("Articles.json")
+        br = BufferedReader(InputStreamReader(articlesFile))
+        val articlesArray = JSONArray(br.readText())
+
+        sharedViewModel.contentsArray = contentsArray
+        sharedViewModel.articlesArray = articlesArray
+
+        // データベース
         val db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,

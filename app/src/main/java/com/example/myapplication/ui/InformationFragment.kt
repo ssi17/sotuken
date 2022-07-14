@@ -80,7 +80,7 @@ class InformationFragment: Fragment() {
             setTopTitle()
         } else {
             setInformationTitle()
-            getContents(currentLocation)
+            sharedViewModel.getContents(currentLocation)
         }
 
         // 再生ボタンに画像を設定
@@ -149,7 +149,7 @@ class InformationFragment: Fragment() {
             }
 
             setInformationTitle()
-            getContents("")
+            sharedViewModel.getContents(currentLocation)
             setRecyclerView()
         }
     }
@@ -168,49 +168,31 @@ class InformationFragment: Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
     }
 
-    // JSONからコンテンツを取得
-    private fun getContents(cityName: String) {
-        // asset
-        val assetManager = resources.assets
-
-        // Contents.json
-        val contentsFile = assetManager.open("Contents.json")
-        var br = BufferedReader(InputStreamReader(contentsFile))
-        val contentsArray = JSONArray(br.readText())
-
-        // Articles.json
-        val articlesFile = assetManager.open("Articles.json")
-        br = BufferedReader(InputStreamReader(articlesFile))
-        val articlesArray = JSONArray(br.readText())
-
-        sharedViewModel.getContents(contentsArray, articlesArray, cityName)
-
-        setRecyclerView()
-    }
-
     //緯度経度をもとに住所の取得
     private fun getAddress(lat: Double, lng: Double) {
         val geocoder = Geocoder(requireActivity())
         val address = geocoder.getFromLocation(lat, lng, 1)
 
-        if(sharedViewModel.startFlag) {
-            if(currentLocation != address[0].locality.toString()) {
-                currentLocation = address[0].locality.toString()
-                getContents(address[0].locality.toString())
+        val city = address[0].locality.toString()
+
+        if(currentLocation != city) {
+            Log.d("debug_location", "${currentLocation}から${city}へ移動")
+            currentLocation = city
+            if(sharedViewModel.startFlag) {
+                sharedViewModel.getContents(city)
+                setRecyclerView()
             }
         }
         //位置情報の表示
-        Log.d("debug_location", "市町村：$currentLocation")
+        Log.d("debug_location", "現在地：$currentLocation")
     }
 
     // -----位置情報-----
     private fun startLocationUpdates() {
-        Log.d("debug_location", "startLocationUpdates()")
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION
         ) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("debug_location", "startLocation() return")
             return
         }
         fusedLocationClient.requestLocationUpdates(
@@ -221,13 +203,11 @@ class InformationFragment: Fragment() {
     }
 
     private fun stopLocationUpdates() {
-        Log.d("debug_location", "stopLocationUpdates()")
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d("debug_location", "onResume()")
         if(requestingLocationUpdates) {
             startLocationUpdates()
         }
@@ -235,7 +215,6 @@ class InformationFragment: Fragment() {
 
     override fun onPause() {
         super.onPause()
-        Log.d("debug_location", "onPause()")
         stopLocationUpdates()
     }
     // -----位置情報-----
