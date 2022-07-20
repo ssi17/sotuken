@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:id="@+id/operation_text"
-            android:src="@drawable/about"
+            android:src="@drawable/header_title_about"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

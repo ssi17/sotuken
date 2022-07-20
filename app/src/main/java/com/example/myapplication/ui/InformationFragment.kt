@@ -1,13 +1,16 @@
 package com.example.myapplication.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
+import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -15,23 +18,20 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
-import com.example.myapplication.database.AppDatabase
-import com.example.myapplication.database.Favorite
 import com.example.myapplication.databinding.FragmentInformationBinding
+import com.example.myapplication.json.Article
 import com.example.myapplication.model.MainViewModel
-import org.json.JSONArray
-import java.io.BufferedReader
-import java.io.InputStreamReader
 import com.google.android.gms.location.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.w3c.dom.Text
+import java.util.*
 
-class InformationFragment: Fragment() {
+class InformationFragment: Fragment(), TextToSpeech.OnInitListener {
 
     private var binding: FragmentInformationBinding? = null
     private val sharedViewModel: MainViewModel by activityViewModels()
@@ -60,6 +60,8 @@ class InformationFragment: Fragment() {
 
     // 現在地の市町村名を保持
     private var currentLocation = ""
+
+    private lateinit var tts: TextToSpeech
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -115,6 +117,8 @@ class InformationFragment: Fragment() {
             }
         }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        tts = TextToSpeech(context, this)
     }
 
     private fun setButton() {
@@ -131,7 +135,7 @@ class InformationFragment: Fragment() {
     }
 
     private fun setInformationTitle() {
-        binding!!.informationTitle.setImageResource(R.drawable.information)
+        binding!!.informationTitle.setImageResource(R.drawable.header_title_information)
     }
 
     // 再生ボタンが押されたときに呼び出される
@@ -150,14 +154,71 @@ class InformationFragment: Fragment() {
 
             setInformationTitle()
             sharedViewModel.getContents(currentLocation)
-            setRecyclerView()
+            startVoice()
         }
     }
 
+    @SuppressLint("NewApi")
+    private fun startVoice() {
+        val articles = sharedViewModel.articles
+        val contents = sharedViewModel.contents
+
+        val list: MutableList<Article> = mutableListOf()
+        var count = 0
+
+        val handler: Handler = Handler()
+
+        tts.setOnUtteranceProgressListener(object: UtteranceProgressListener() {
+            override fun onDone(id: String) {
+                Log.d("debug_voice", "onDone()")
+            }
+
+            override fun onError(id: String) {
+
+            }
+
+            override fun onStart(id: String) {
+                Log.d("debug_voice", "onStart()")
+                for(article in articles) {
+                    if(contents[count].articleId.contains(article.id)) {
+                        list.add(0, article)
+                    }
+                }
+                Log.d("debug_voice", "list:${list.size}")
+                count++
+                handler.post(Runnable() {setRecyclerView(list)})
+            }
+        })
+
+        for(content in contents) {
+            val text = content.voice
+            Log.d("debug_voice", "add text:${content.id}")
+            tts.speak(text, TextToSpeech.QUEUE_ADD, null, "${content.id}")
+        }
+    }
+
+    override fun onInit(status: Int) {
+        if(status == TextToSpeech.SUCCESS) {
+            tts.let { tts ->
+                val locale = Locale.JAPAN
+                if(tts.isLanguageAvailable(locale) > TextToSpeech.LANG_AVAILABLE) {
+                    tts.language = Locale.JAPAN
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        tts.shutdown()
+        super.onDestroy()
+    }
+
+
     // リサイクラーを設定
-    private fun setRecyclerView() {
+    private fun setRecyclerView(articles: List<Article>) {
+        Log.d("debug_voice", "setRecyclerView()${articles.size}")
         recyclerView = binding!!.recyclerView
-        val adapter = RecyclerAdapter(sharedViewModel.articles, sharedViewModel.flagList)
+        val adapter = RecyclerAdapter(articles, sharedViewModel.flagList)
         recyclerView.adapter = adapter
         // お気に入り登録ボタンが押された時の処理
         adapter.favoriteButton = object : RecyclerAdapter.FavoriteButton {
@@ -180,7 +241,7 @@ class InformationFragment: Fragment() {
             currentLocation = city
             if(sharedViewModel.startFlag) {
                 sharedViewModel.getContents(city)
-                setRecyclerView()
+                startVoice()
             }
         }
         //位置情報の表示

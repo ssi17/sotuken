@@ -2,6 +2,7 @@ package com.example.myapplication.ui
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,8 @@ class RecyclerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.item.context
+
+        Log.d("debug_recycler", "RecyclerAdapter:${articles.size}")
 
         // サムネイル画像を設定
         val resId = context.resources.getIdentifier(articles[position].img, "drawable", context.packageName)
@@ -60,7 +63,7 @@ class RecyclerAdapter(
         if(flagList[id].flag) {
             holder.favorites.setImageResource(R.drawable.favorite_button)
         } else {
-            holder.favorites.setImageResource(R.drawable.star)
+            holder.favorites.setImageResource(R.drawable.not_favorite_button)
         }
     }
 

@@ -10,7 +10,7 @@
         android:id="@+id/background_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:alpha="0.30"
+        android:alpha="0.5"
         android:src="@drawable/background_image"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"

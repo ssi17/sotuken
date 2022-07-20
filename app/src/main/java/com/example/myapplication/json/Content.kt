@@ -6,7 +6,8 @@ data class Content(
     val id: Int,
     val city: String,
     val category: String,
-    @Json(name="article_id") val articleId: IntArray
+    @Json(name="article_id") val articleId: IntArray,
+    val voice: String
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

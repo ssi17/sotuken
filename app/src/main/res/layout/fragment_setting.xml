@@ -16,13 +16,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white_77">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:id="@+id/setting_title"
-            android:src="@drawable/settings"
+            android:src="@drawable/header_title_settings"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -30,8 +31,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
             android:id="@+id/setting_text"
             android:text="@string/setting_text"
+            android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/setting_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -41,6 +44,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:id="@+id/setting_sound"
             android:text="@string/setting_sound"
             app:layout_constraintTop_toBottomOf="@id/setting_text"
@@ -50,6 +54,7 @@
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:padding="8dp"
             android:id="@+id/sound_switch"
             android:text="@string/sound_switch"
             android:checked="@{viewModel.bgmFlag}"
@@ -64,6 +69,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:id="@+id/setting_guide"
             android:text="@string/setting_guide"
             app:layout_constraintTop_toBottomOf="@id/sound_switch"
@@ -73,6 +79,7 @@
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:padding="8dp"
             android:id="@+id/tourist_sight_switch"
             android:text="@string/tourist_sight_switch"
             android:background="@drawable/frame_style"
@@ -86,6 +93,7 @@
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:padding="8dp"
             android:id="@+id/restaurant_switch"
             android:text="@string/restaurant_switch"
             android:background="@drawable/frame_style"
@@ -99,6 +107,7 @@
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:padding="8dp"
             android:id="@+id/history_switch"
             android:text="@string/history_switch"
             android:background="@drawable/frame_style"
@@ -112,6 +121,7 @@
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:padding="8dp"
             android:id="@+id/trivia_switch"
             android:text="@string/trivia_switch"
             android:background="@drawable/frame_style"
