@@ -42,12 +42,11 @@
 <!--    各アイテムのタイトル-->
 <!--    <TextView-->
 <!--        android:id="@+id/item_title"-->
-<!--        android:layout_width="0dp"-->
+<!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:textSize="20sp"-->
 <!--        android:background="@drawable/underbar"-->
 <!--        android:textAlignment="center"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/favorite_button"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        tools:text="首里城" />-->

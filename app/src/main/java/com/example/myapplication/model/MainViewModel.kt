@@ -53,11 +53,22 @@ class MainViewModel : ViewModel() {
     var contents: MutableList<Content> = mutableListOf()
     // アーティクルのリスト
     var articles: MutableList<Article> = mutableListOf()
+    // 画面に表示するアーティクルリスト
+    private val _displayArticles: MutableLiveData<MutableList<Article>> = MutableLiveData<MutableList<Article>>(mutableListOf())
+    val displayArticles: LiveData<MutableList<Article>> = _displayArticles
+    // 読み上げ終わったコンテンツのIDのリスト
+    val doneContents: MutableList<Int> = mutableListOf()
+
+    // お気に入り画面用のアーティクルリスト
+    var favoriteArticles: MutableList<Article> = mutableListOf()
 
     // データベースを操作するインスタンス
     var db: AppDatabase? = null
     // お気に入り登録状況を保持するリスト
     val flagList: MutableList<Favorite> = mutableListOf()
+
+    // 現在の市町村情報
+    var city: String = ""
 
     // 設定画面のスイッチの初期値
     init {
@@ -99,7 +110,7 @@ class MainViewModel : ViewModel() {
     }
 
     // JSONファイルから記事を取得する処理
-    fun getContents(city: String) {
+    fun getContents() {
         val contentsArray = contentsArray!!
         val articlesArray = articlesArray!!
 
@@ -155,7 +166,7 @@ class MainViewModel : ViewModel() {
 
     fun getFavoriteArticle() {
         // 初期化
-        articles = mutableListOf()
+        favoriteArticles = mutableListOf()
 
         // JSONからインスタンスを作成する準備
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
@@ -163,9 +174,13 @@ class MainViewModel : ViewModel() {
 
         for(i in 0 until flagList.size) {
             if(flagList[i].flag) {
-                articles.add(adapter.fromJson(articlesArray!!.getJSONObject(i).toString()) as Article)
+                favoriteArticles.add(adapter.fromJson(articlesArray!!.getJSONObject(i).toString()) as Article)
             }
         }
+    }
+
+    fun setDisplayArticles(list: MutableList<Article>) {
+        _displayArticles.postValue(list)
     }
 
     // お気に入り登録情報をデータベースに追加

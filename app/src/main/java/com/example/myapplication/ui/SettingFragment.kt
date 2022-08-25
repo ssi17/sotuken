@@ -32,22 +32,14 @@ class SettingFragment: Fragment() {
             settingFragment = this@SettingFragment
             viewModel = sharedViewModel
         }
-        setButton()
-    }
 
-    // 再生ボタンに画像を設定
-    private fun setButton() {
-        requireActivity().let {
-            if(it is MainActivity) {
-                it.setButton(binding!!.startButton, sharedViewModel.startFlag)
+        if(sharedViewModel.startFlag) {
+            requireActivity().let {
+                if(it is MainActivity) {
+                    it.setIcon()
+                }
             }
         }
-    }
-
-    // 再生ボタンが押された時の処理
-    fun pushButton() {
-        sharedViewModel.changeStartFlag()
-        setButton()
     }
 
     // BGMのON/OFF切り替え
@@ -66,6 +58,7 @@ class SettingFragment: Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        sharedViewModel.getContents()
         binding = null
     }
 }

@@ -24,17 +24,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <ImageButton
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginBottom="60dp"
-            android:id="@+id/start_button"
-            android:background="#00000000"
-            android:scaleType="fitCenter"
-            android:onClick="@{() -> aboutFragment.pushButton()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

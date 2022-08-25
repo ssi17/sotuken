@@ -30,20 +30,13 @@ class AboutFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.aboutFragment = this
 
-        setButton()
-    }
-
-    private fun setButton() {
-        requireActivity().let {
-            if(it is MainActivity) {
-                it.setButton(binding!!.startButton, sharedViewModel.startFlag)
+        if(sharedViewModel.startFlag) {
+            requireActivity().let {
+                if(it is MainActivity) {
+                    it.setIcon()
+                }
             }
         }
-    }
-
-    fun pushButton() {
-        sharedViewModel.changeStartFlag()
-        setButton()
     }
 
     override fun onDestroyView() {

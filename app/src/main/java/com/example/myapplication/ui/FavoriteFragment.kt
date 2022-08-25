@@ -32,27 +32,21 @@ class FavoriteFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.favoriteFragment = this
 
-        setButton()
         sharedViewModel.getFavoriteArticle()
         setRecyclerView()
-    }
 
-    private fun setButton() {
-        requireActivity().let {
-            if(it is MainActivity) {
-                it.setButton(binding!!.startButton, sharedViewModel.startFlag)
+        if(sharedViewModel.startFlag) {
+            requireActivity().let {
+                if(it is MainActivity) {
+                    it.setIcon()
+                }
             }
         }
     }
 
-    fun pushButton() {
-        sharedViewModel.changeStartFlag()
-        setButton()
-    }
-
     private fun setRecyclerView() {
         recyclerView = binding!!.recyclerView
-        val adapter = RecyclerAdapter(sharedViewModel.articles, sharedViewModel.flagList)
+        val adapter = RecyclerAdapter(sharedViewModel.favoriteArticles, sharedViewModel.flagList)
         recyclerView.adapter = adapter
         // お気に入り登録ボタンが押された時の処理
         adapter.favoriteButton = object : RecyclerAdapter.FavoriteButton {

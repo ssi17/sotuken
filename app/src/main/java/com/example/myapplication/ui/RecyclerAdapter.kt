@@ -24,8 +24,6 @@ class RecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.item.context
 
-        Log.d("debug_recycler", "RecyclerAdapter:${articles.size}")
-
         // サムネイル画像を設定
         val resId = context.resources.getIdentifier(articles[position].img, "drawable", context.packageName)
         holder.images.setImageResource(resId)
